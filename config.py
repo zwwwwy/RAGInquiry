@@ -4,9 +4,10 @@ md5_path = f"./{config_path_name}/md5_text.txt"
 # chroma相关
 collection_name = "rag"  # 数据库名
 persist_directory = "./chromaDb"  # 数据库本地存储文件夹
+history_database_path = "sqlite:///history/chat_history.db"  # 历史记录数据库
 embedding_model_name = "text-embedding-v4"
 chat_model_name = "qwen3-max"
-model_api = "sk-9b5057b6df9c4309a6146c115fcbc212"
+
 
 # 文本分割相关
 chunk_size = 1000  # 分割后最大文本长度
