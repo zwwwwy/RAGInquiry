@@ -8,7 +8,7 @@ if "rag_server" not in st.session_state:  # 防止页面刷新导致重新创建
     st.session_state["rag_server"] = RagServer()
 
 if "session_id" not in st.session_state:
-    st.session_state["session_id"] = "admin"
+    st.session_state["session_id"] = "test"
 
 if "messages" not in st.session_state:
     st.session_state.messages = st.session_state["rag_server"].get_history_for_web(st.session_state["session_id"])

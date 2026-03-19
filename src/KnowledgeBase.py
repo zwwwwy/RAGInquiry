@@ -77,9 +77,8 @@ class KnowledgeBase(object):
                 text_chunk: list[str] = [data]
 
             meta_data = {"source": filename, "ctime": datetime.now().strftime("%Y-%m-%d %H:%H:%S"), "doc_tag": doc_tag, "md5":md5_hex}
-            self.chroma.add_texts(texts=text_chunk, metadatas=[meta_data for i in text_chunk])
+            self.chroma.add_texts(texts=text_chunk, metadatas=[meta_data | {"chunk_id":string2md5(i)} for i in text_chunk])
             save_md5(md5_hex)
-
             return True
         
     def get_records_by_tag(self, tag):
@@ -94,11 +93,15 @@ class KnowledgeBase(object):
         
         return 0
 
-    def delete_by_tag(self, tag):
-        records = self.chroma.get(where={"doc_tag": {"$contains": tag}})
-        if records:
-            self.chroma.delete(ids=records["ids"])
-            delete_md5(records["metadatas"][0]["md5"])
-            return 1
+    # def delete_by_tag(self, tag):
+    #     records = self.chroma.get(where={"doc_tag": {"$contains": tag}})
+    #     if records:
+    #         self.chroma.delete(ids=records["ids"])
+    #         delete_md5(records["metadatas"][0]["md5"])
+    #         return 1
         
-        return 0
+        # return 0
+        
+# if __name__ == "__main__":
+#     db = KnowledgeBase()
+#     db.uploadStr("asdasda", "aaa.a", ["aaa"])
