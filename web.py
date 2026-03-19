@@ -1,4 +1,3 @@
-import json
 
 import streamlit as st
 from src.RagServer import RagServer
@@ -16,18 +15,18 @@ if "messages" not in st.session_state:
     
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
-        st.markdown(message["content"])
+        st.write(message["content"])
         
         
         
 question = st.chat_input("在此输入问题")
 if question:
-    st.chat_message("human").markdown(question)
+    st.chat_message("human").write(question)
 
     with st.spinner("思考中"):
         response = st.session_state["rag_server"].chain.invoke({'input': question}, {'configurable': {'session_id': st.session_state["session_id"]}})
-        st.chat_message("ai").markdown(response)
-        st.session_state.messages.append({"role": "user", "content": question})
+        st.chat_message("ai").write(response)
+        st.session_state.messages.append({"role": "human", "content": question})
         st.session_state.messages.append({"role": "ai", "content": response, "token":"asdsd"})
         
         

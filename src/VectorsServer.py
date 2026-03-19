@@ -21,9 +21,9 @@ class VectorsServer(object):  # 根据提问创建向量并匹配
         return self.vector_store.as_retriever(search_kwargs={"k": config.search_num})
 
 
-if __name__ == "__main__":
-    from langchain_community.embeddings import DashScopeEmbeddings
+# if __name__ == "__main__":
+#     from langchain_community.embeddings import DashScopeEmbeddings
 
-    retriever = VectorsServer(DashScopeEmbeddings(model="text-embedding-v4")).get_retriever()
-    aaa = retriever.invoke(input="你目前掌握了哪些信息？")
-    print(aaa, 666)
+#     retriever = VectorsServer(DashScopeEmbeddings(model="text-embedding-v4")).get_retriever()
+#     aaa = retriever.invoke(input="你目前掌握了哪些信息？")
+#     print(aaa, 666)
