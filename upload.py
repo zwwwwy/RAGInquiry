@@ -3,7 +3,7 @@ import streamlit as st
 import config
 from src.KnowledgeBase import KnowledgeBase
 from src.utils import excel2string, pdf2string
-
+import pandas as pd
 
 class UploadFileInfo:
     def __init__(self) -> None:
@@ -31,7 +31,10 @@ def init_file(upload_file, tags: list) -> UploadFileInfo:
 
 def upload_str(file: UploadFileInfo):
     with st.spinner("上传中"):
-        state = st.session_state["server"].uploadStr(file.text, file.name, file.tags)
+        col_name = "不提供列名称"
+        if file.name.split(".")[1] == "xlsx":
+            col_name = ",".join(map(str,pd.read_excel(file.raw_file).columns))
+        state = st.session_state["server"].uploadStr(file.text, file.name, file.tags, col_name)
         if state == 1:
             st.write(f"已上传{file.name}，大小为{file.size/1024:.2f}KB")
         else:

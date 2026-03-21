@@ -15,8 +15,12 @@ chunk_overlap = 100  # 连续文本段间字符重叠数量
 separators = ["\n", "\n\n", ".", "?", "!", "。", "？", "！", ",", "，", ""]
 split_threshold = 1000
 
-search_num = 20  # 输入向量匹配数
-bm25_k = 20
-rerank_n = 5
+search_num = 40  # 输入向量匹配数
+bm25_k = 40
+rerank_n = 10
+
+sim_threshold = 0.7  # 切分chunk时语义相似度阈值
+min_chunk_len = 3    # chunk含有最短句子数量
+max_chunk_len = 10
 
 doc_tags = ["模板文件", "招股说明书", "合同", "资产负债表", "利润表", "现金流量表", "审计报告", "支持性文件"]

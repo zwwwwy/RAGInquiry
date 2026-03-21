@@ -1,3 +1,4 @@
+from ctypes import util
 from importlib import metadata
 import sys
 import os
@@ -8,6 +9,7 @@ sys.path.append(root_path)
 
 import config
 import numpy as np
+from src.utils import similarity_calc
 from src.VectorsServer import VectorsServer
 from langchain_community.embeddings import DashScopeEmbeddings
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
@@ -158,9 +160,7 @@ class RagServer(object):
         text = [doc.page_content for doc in doc_list]
         text_embedding = np.array(self.vector_server.embedding.embed_documents(text))
         
-        query_norm = np.linalg.norm(query_embedding) + 1e-12
-        text_norm = np.linalg.norm(text_embedding, axis=1) + 1e-12
-        sim = (text_embedding @ query_embedding) / (text_norm * query_norm)
+        sim = similarity_calc(text_embedding, query_embedding)
         
         idx = np.argsort(-sim)
         idx = idx[:config.rerank_n]

@@ -36,8 +36,7 @@ class VectorsServer(object):  # 根据提问创建向量并匹配
         ret = []
         n = min(len(docs), len(metadata_list), len(ids))
         for i in range(n):
-            metadata = metadata_list[i]
-            metadata = dict(metadata)
+            metadata = dict(metadata_list[i])
             metadata["ids"] = ids[i]
             ret.append(Document(page_content=docs[i], metadata=metadata))
         return ret
